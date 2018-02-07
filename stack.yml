@@ -1,0 +1,10 @@
+provider:
+  name: faas
+  gateway: http://localhost:8080
+
+functions:
+  inception:
+    lang: dockerfile
+    handler: ./function
+    image: alexellis/inception:2.0
+
