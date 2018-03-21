@@ -21,6 +21,7 @@ import os
 import urllib.request
 import tarfile
 import zipfile
+import requests
 
 ########################################################################
 
@@ -60,11 +61,27 @@ def maybe_download(url, download_dir):
         if not os.path.exists(download_dir):
             os.makedirs(download_dir)
 
+        agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'
+
         # Download the file from the internet.
-        file_path, _ = urllib.request.urlretrieve(url=url,
-                                                  filename=file_path,
-                                                  reporthook=_print_download_progress)
+#        file_path, _ = urllib.request.urlretrieve(url=url,
+#                                                  filename=file_path,
+#                                                  reporthook=_print_download_progress)
+        download_local(url, file_path, agent)
+
     return file_path
+
+def download_local(url, file_path, agent):
+    headers = {
+            'User-Agent': agent
+            }
+
+    r = requests.get(url, headers=headers)
+    with open(file_path, 'wb') as f:
+        for chunk in r.iter_content(chunk_size=1024):
+            if chunk:
+                f.write(chunk)
+
 
 def maybe_download_and_extract(url, download_dir):
     """
