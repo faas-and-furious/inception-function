@@ -6,5 +6,5 @@ functions:
   inception:
     lang: dockerfile
     handler: ./function
-    image: alexellis/inception:2.1
+    image: alexellis/inception:2019-02-17
 
