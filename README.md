@@ -19,7 +19,7 @@ Invoke via `curl` or `faas-cli invoke`:
 
 ```
 $ URL=https://upload.wikimedia.org/wikipedia/commons/6/61/Humpback_Whale_underwater_shot.jpg \
-  echo $URL | faas-cli invoke inception
+  echo -n $URL | faas-cli invoke inception
 
 [{"name": "great white shark", "score": 0.5343291759490967}, {"name": "tiger shark", "score": 0.09276486188173294}, {"name": "grey whale", "score": 0.05899052694439888}, {"name": "sea lion", "score": 0.05105864629149437}, {"name": "hammerhead", "score": 0.019910583272576332}, {"name": "sturgeon", "score": 0.013177040033042431}, {"name": "stingray", "score": 0.00763126602396369}, {"name": "electric ray", "score": 0.006749240681529045}, {"name": "killer whale", "score": 0.005086909048259258}, {"name": "ice bear", "score": 0.003828041721135378}]
 ```
@@ -30,7 +30,7 @@ $ URL=https://upload.wikimedia.org/wikipedia/commons/6/61/Humpback_Whale_underwa
 
 ```
 $ URL=https://upload.wikimedia.org/wikipedia/commons/6/61/Humpback_Whale_underwater_shot.jpg \
-  echo $URL | faas-cli invoke inception \
+  echo -n $URL | faas-cli invoke inception \
   | jq '.[] | select(.score > 0.05)'
 
 {
