@@ -1,10 +1,10 @@
 provider:
-  name: faas
+  name: openfaas
   gateway: http://localhost:8080
 
 functions:
   inception:
     lang: dockerfile
     handler: ./function
-    image: alexellis/inception:2.1
+    image: alexellis/inception:2020-07-01
 

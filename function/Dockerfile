@@ -1,10 +1,13 @@
-FROM tensorflow/tensorflow:latest
+FROM openfaas/classic-watchdog:0.18.1 as watchdog
+
+FROM tensorflow/tensorflow:1.15.0
 
 RUN apt-get update -qy \
  && apt-get install -qy \
        python3-pip
-RUN curl -sSL https://github.com/openfaas/faas/releases/download/0.7.0/fwatchdog > /usr/bin/fwatchdog \
-    && chmod +x /usr/bin/fwatchdog
+
+COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
+RUN chmod +x /usr/bin/fwatchdog
 
 WORKDIR /root/
 
@@ -18,8 +21,6 @@ COPY *.py ./
 RUN python3 ./pre_download.py
 
 COPY *.txt ./
-
-
 
 ENV write_debug="true"
 ENV fprocess="python3 index.py"
